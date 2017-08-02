@@ -1,0 +1,59 @@
+<koken:include file="layouts/header.html" />
+
+<koken:load>
+
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ site.title }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<koken:first>
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		</koken:first>
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+		<koken:not empty="profile.twitter">
+			<meta name="twitter:card" content="gallery" />
+			<meta name="twitter:site" content="@{{ profile.twitter }}" />
+			<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			<koken:loop limit="4">
+				<meta name="twitter:image{{ index }}" content="{{ content.presets.medium_large.cropped.url }}">
+			</koken:loop>
+		</koken:not>
+	</koken:head>
+
+</koken:load>
+
+<div id="splash" class="bleed_{{ settings.splash_bleed }} spin_{{ settings.show_content_load_spin }}">
+
+	<koken:if true="settings.show_content_load_spin">
+		<koken:if data="settings.spin_style" equals="halfcirc"><div class="spinner_pos"><div class="spinner"></div></div></koken:if>
+	</koken:if>
+
+	<koken:pulse jsvar="splashy" group="lens_splash" width="100%" height="100%" crop="fill" link_to="advance" speed="5" transition_duration="0.8" fallbacktext="No featured content found. Assign some in the Library." />
+
+</div>
+
+<script>
+splashy.on('waiting', function(e) {
+	var settings = {{ settings.to_json fields="show_content_load_spin,spin_style" }};
+	if (settings.show_content_load_spin) {
+		if (e) {
+			if (settings.spin_style == "halfcirc") {
+				$('.spinner_pos').fadeIn();
+			} else {
+				$('#splash').addClass('show_flower');
+			}
+		} else {
+			if (settings.spin_style == "halfcirc") {
+				$('.spinner_pos').fadeOut();
+			} else {
+				$('#splash').removeClass('show_flower');
+			}
+		}
+	}
+});
+</script>
+
+<koken:include file="layouts/footer.html" />

@@ -1,0 +1,56 @@
+<koken:include file="layouts/header.html" />
+
+<koken:load>
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ site.title }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<koken:first>
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		</koken:first>
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+		<koken:not empty="profile.twitter">
+			<meta name="twitter:card" content="gallery" />
+			<meta name="twitter:site" content="@{{ profile.twitter }}" />
+			<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			<koken:loop limit="4">
+				<meta name="twitter:image{{ index }}" content="{{ content.presets.medium_large.cropped.url }}">
+			</koken:loop>
+		</koken:not>
+	</koken:head>
+</koken:load>
+
+<div id="main" class="layout_{{ settings.page_layout }} palign_{{ settings.page_align }} strip_{{ settings.show_strip }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		<koken:if data="settings.page_layout" equals="grid">
+			<koken:variable name="limit" value="30" />
+		<koken:else>
+			<koken:variable name="limit" value="60" />
+		</koken:if>
+
+		<koken:load limit="{{ limit }}" infinite="true">
+
+			<koken:include file="layouts/{{ settings.page_layout }}_loop.html" />
+
+		<koken:else>
+
+			<koken:note>
+				This page displays featured content. Assign some in the Library.
+			</koken:note>
+
+		</koken:load>
+
+	</div>
+
+</div>
+
+<koken:if data="settings.page_layout" equals="grid">
+	<koken:include file="layouts/pillar_madison.html" />
+</koken:if>
+
+<koken:include file="layouts/footer.html" />

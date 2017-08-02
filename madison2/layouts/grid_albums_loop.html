@@ -1,0 +1,51 @@
+<div id="kpgrid">
+
+	<div id="kpgrid_content" class="{{ settings.spin_style }}">
+
+		<koken:loop>
+
+			<figure class="kpgriditem">
+
+				<div class="item_media clear">
+
+					<span class="img_wrap" data-koken-ignore-responsive="true">
+
+						<koken:link lightbox="{{ settings.link_to_lightbox }}" class="imgframe">
+
+							<koken:if data="{{ settings.img_scale }}" equals="uniform">
+
+								<koken:img lazy="true" size="{{ settings.img_ratio }}" />
+
+							</koken:if>
+
+							<koken:if data="{{ settings.img_scale }}" equals="normal">
+
+								<koken:img lazy="true" />
+
+							</koken:if>
+
+							<koken:if true="{{ settings.show_content_load_spin }}">
+							<koken:if data="settings.spin_style" equals="halfcirc"><div class="spinner_pos"><div class="spinner"></div></div></koken:if>
+							</koken:if>
+
+						</koken:link>
+
+					</span>
+
+					<koken:if true="settings.show_text">
+						<koken:include file="layouts/figcaption_album.html" />
+					</koken:if>
+
+				</div>
+
+			</figure>
+
+		</koken:loop>
+
+	</div>
+
+</div>
+
+<koken:keyboard_scroll offset="-{{ settings.mob_menu_h }}" element=".pillar .kpgriditem" />
+
+<koken:include file="layouts/strip.html" />

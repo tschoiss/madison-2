@@ -1,0 +1,103 @@
+<koken:include file="layouts/header.html" />
+
+<div id="main" class="palign_{{ settings.page_align }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		<koken:load>
+
+			<koken:head>
+				<meta property="og:site_name" content="{{ site.title }}" />
+				<meta property="og:title" content="{{ labels.favorite.plural }}" />
+				<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+				<meta property="og:type" content="website" />
+				<koken:first>
+				<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+				<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+				<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+				</koken:first>
+				<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+				<koken:not empty="profile.twitter">
+				<meta name="twitter:card" content="gallery" />
+				<meta name="twitter:site" content="@{{ profile.twitter }}" />
+				<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+				<koken:loop limit="4">
+				<meta name="twitter:image{{ index }}" content="{{ content.presets.medium_large.cropped.url }}">
+				</koken:loop>
+				</koken:not>
+			</koken:head>
+
+			<koken:pulse jsvar="pulse" group="lens_fave" link_to="advance" transition_type="fade" transition_duration="1" size="expand" next="#sldshw-next" previous="#sldshw-prev" />
+
+			<div class="slideshow_pag">
+
+				<koken:if true="{{ settings.show_pag_fave }}">
+					<a href="#" id="sldshw-prev" title="{{ language.previous }}" data-bind-to-key="left">{{ language.previous }}</a>
+					/
+					<a href="#" id="sldshw-next" title="{{ language.next }}" data-bind-to-key="right">{{ language.next }}</a>
+				</koken:if>
+
+				<koken:if true="settings.show_exif">
+					<div class="media-meta"><ol id="fave_exif" class="exif"></ol></div>
+				</koken:if>
+
+			</div>
+
+			<span class="text">
+
+				<koken:if true="settings.show_title">
+					<h3 id="fave_title"></h3>
+				</koken:if>
+
+				<koken:if true="settings.show_caption">
+					<p id="fave_caption"></p>
+				</koken:if>
+
+			</span>
+
+			<script>
+				pulse.on( 'transitionstart', function(e) {
+					var data = e.data,
+						title = $('#fave_title'),
+						caption = $('#fave_caption');
+
+					if (title) {
+						title.html( data.title || data.filename );
+					}
+					if (caption) {
+						caption.html( data.caption );
+					}
+					var exif_fields = ['aperture','exposure','focal_length','iso_speed_ratings'],
+						exif_element = $('#fave_exif'),
+						wrap = $('<li/>');
+
+					var fields = $.map(e.data.exif_fields, function(field) {
+						if ($.inArray(field,exif_fields) !== -1) {
+							return $.map(e.data.exif, function (exif_val) {
+								if (exif_val.key === field) {
+									return (exif_val.clean) ? exif_val.clean : exif_val.raw;
+								}
+							});
+						}
+					});
+
+					exif_element.html($.map(fields, function(field) {
+						return wrap.clone().text(field);
+					}));
+
+				});
+			</script>
+
+		<koken:else>
+
+			<koken:note>
+				This page displays a slideshow of your favorite images. Assign some in the Libary.
+			</koken:note>
+
+		</koken:load>
+
+	</div>
+
+</div>
+
+<koken:include file="layouts/footer.html" />

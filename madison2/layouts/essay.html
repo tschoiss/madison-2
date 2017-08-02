@@ -1,0 +1,70 @@
+<koken:if true="settings.show_essays_link">
+	<p id="essay_all_essays" class="archive_head">
+		<koken:link to="essays" title="{{ language.view_all_essays }}" class="pag back">{{ language.view_all_essays }}</koken:link>
+	</p>
+</koken:if>
+
+<header>
+	<koken:time class="item_meta" />
+	<koken:link title="{{ essay.title }}">
+		<h1>
+			{{ essay.title }}
+		</h1>
+	</koken:link>
+</header>
+
+{{ essay.content }}
+
+<koken:more>
+	<p>
+		<koken:link title="{{ essay.title }}" class="read_more">
+			{{ essay.read_more_label }}
+		</koken:link>
+	</p>
+</koken:more>
+
+<footer>
+
+	<koken:topics>
+		<p id="essay_topics" class="meta">
+			{{ language.topic }}:
+			<koken:loop separator=", ">
+				<koken:link title="View {{ album.title }}">
+					{{ album.title }}
+				</koken:link>
+			</koken:loop>
+		</p>
+	</koken:topics>
+
+	<koken:categories>
+		<p id="essay_categories" class="meta">
+			{{ language.posted_in }}
+			<koken:loop separator=", ">
+				<koken:link title="{{ language.view_all_essays_in_title collate='category.title' }}">
+					{{ category.title }}
+				</koken:link>
+			</koken:loop>
+		</p>
+	</koken:categories>
+
+	<koken:tags>
+		<p id="essay_tags" class="meta tags">
+			<koken:loop separator="&nbsp;">
+				<koken:link title="{{ language.view_all_essays_in_title collate='tag.title' }}">
+					#{{ tag.title }}
+				</koken:link>
+			</koken:loop>
+		</p>
+	</koken:tags>
+
+	<koken:if true="settings.show_essay_share_link">
+
+		<div id="essay_social" class="meta">
+			{{ language.share }}:&nbsp;&nbsp;<ul class="inline social-links"><li><koken:if empty="profile.twitter"><a href="https://twitter.com/intent/tweet?text={{ essay.title url_encode="true" }}&url={{ essay.url url_encode="true" }}" class="share-twitter" title="{{ language.share_on_ }} Twitter"><koken:else><a href="https://twitter.com/intent/tweet?text={{ essay.title url_encode="true" }}&url={{ essay.url url_encode="true" }}&via={{ profile.twitter }}" class="share-twitter" title="{{ language.share_on_ }} Twitter"></koken:if>Twitter</a></li><li><a href="https://www.facebook.com/sharer.php?u={{ essay.url url_encode="true" }}" class="share-facebook" title="{{ language.share_on_ }} Facebook">Facebook</a></li><li><a target="_blank" href="https://www.tumblr.com/widgets/share/tool?posttype=link&canonicalUrl={{ essay.url url_encode="true" }}&content={{ essay.url url_encode="true" }}&caption=%3Cp%3E%3Cstrong%3E%3Ca href=&quot;{{ essay.url url_encode="true" }}&quot; title=&quot;{{ essay.title url_encode="true" }}&quot;%3E{{ essay.title url_encode="true" }}%3C/a%3E%3C%2Fstrong%3E%3C%2Fp%3E%3Cp%3E{{ essay.excerpt url_encode="true" }}%3C%2Fp%3E" class="share-tumblr" title="{{ language.share_on_ }} Tumblr">Tumblr</a></li><li><a href="https://plus.google.com/share?url={{ essay.url url_encode="true" }}" class="share-google" title="{{ language.share_on_ }} Google+">Google+</a></li>
+	        </ul>
+
+		</div>
+
+	</koken:if>
+
+</footer>

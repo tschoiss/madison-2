@@ -1,0 +1,54 @@
+<koken:event_essay>
+
+	<figure class="list_item">
+
+		<koken:featured_image>
+
+			<div class="item_media">
+
+				<koken:link title="{{ language.read_title collate='essay.title' }}">
+
+					<koken:img lazy="true" class="imgframe" />
+
+				</koken:link>
+
+			</div>
+
+		</koken:featured_image>
+
+		<figcaption class="cap_width">
+
+			<h3>
+				<koken:link title="{{ language.view_title collate='essay.title' }}">{{ essay.title }}</koken:link><koken:if true="settings.show_comment_counts">&nbsp;&nbsp;<span class="item_meta"><koken:discussion_count>({{ discussion_count }})</koken:discussion_count></span></koken:if>
+			</h3>
+
+			<p>
+				{{ essay.excerpt }} <koken:link class="read_more" title="{{ language.view_title collate='essay.title' }}">{{ language.read_more }}</koken:link>
+			</p>
+
+			<koken:categories>
+				<p class="meta">
+					{{ language.view_more_in }}:
+					<koken:loop separator=", ">
+						<koken:link to="category" title="{{ language.view_everything_in_title collate='category.title' }}">
+							{{ category.title }}
+						</koken:link>
+					</koken:loop>
+				</p>
+			</koken:categories>
+
+			<koken:tags>
+				<p class="meta tags">
+					<koken:loop separator="&nbsp;">
+						<koken:link to="tag" title="{{ language.view_everything_in }} #{{ tag.title }}">
+							#{{ tag.title }}
+						</koken:link>
+					</koken:loop>
+				</p>
+			</koken:tags>
+
+		</figcaption>
+
+	</figure>
+
+</koken:event_essay>

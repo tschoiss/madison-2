@@ -1,0 +1,59 @@
+<koken:include file="layouts/header.html" />
+
+<div id="main" class="palign_{{ settings.page_align }} strip_{{ settings.show_strip }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		<koken:load infinite="true" limit="6">
+
+			<koken:head>
+				<meta property="og:site_name" content="{{ site.title }}" />
+				<meta property="og:title" content="{{ labels.timeline.plural }} / {{ event.title }}" />
+				<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+				<meta property="og:type" content="website" />
+				<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+			</koken:head>
+
+			<koken:loop>
+
+				<header class="index">
+					<h1>
+						<koken:link to="timeline" title="{{ language.timeline }}">{{ language.timeline }}</koken:link> / <koken:link><koken:time /></koken:link>
+					</h1>
+				</header>
+
+				<div class="event">
+
+					<koken:event>
+
+						<koken:include file="layouts/event_album.html" />
+
+						<koken:include file="layouts/event_album_update.html" />
+
+						<koken:include file="layouts/event_content.html" />
+
+						<koken:include file="layouts/event_essay.html" />
+
+					</koken:event>
+
+				</div>
+
+			</koken:loop>
+
+			<koken:keyboard_scroll offset="-{{ settings.mob_menu_h }}" element=".list_item" />
+
+		<koken:else>
+
+			<koken:note>
+
+				<strong>No timeline data found.</strong> You need to upload content or publish an essay.
+
+			</koken:note>
+
+		</koken:load>
+
+	</div>
+
+</div>
+
+<koken:include file="layouts/footer.html" />

@@ -1,0 +1,120 @@
+<koken:include file="layouts/header.html" />
+
+<div id="main" class="layout_{{ settings.page_layout }} palign_{{ settings.page_align }} strip_{{ settings.show_strip }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		<koken:if data="settings.page_layout" equals="grid">
+			<koken:variable name="limit" value="30" />
+		<koken:else>
+			<koken:variable name="limit" value="6" />
+		</koken:if>
+
+		<koken:load limit="{{ limit }}" infinite="true">
+
+			<koken:head>
+				<meta property="og:site_name" content="{{ site.title }}" />
+				<meta property="og:title" content="{{ album.title strip_html="true" }}" />
+				<meta property="og:description" content="{{ album.summary | album.description strip_html="true" }}" />
+				<meta property="og:type" content="website" />
+				<meta property="og:url" content="{{ album.url }}" />
+				<koken:covers><koken:shift>
+				<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+				<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+				<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+				</koken:shift></koken:covers>
+				<koken:not empty="profile.twitter">
+					<meta name="twitter:card" content="gallery" />
+					<meta name="twitter:site" content="@{{ profile.twitter }}" />
+					<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+					<koken:covers minimum="4" limit="4">
+						<koken:loop>
+							<meta name="twitter:image{{ index }}" content="{{ content.presets.medium_large.cropped.url }}">
+						</koken:loop>
+					</koken:covers>
+				</koken:not>
+			</koken:head>
+
+			<koken:if true="settings.show_album_info">
+
+				<koken:if exists="album">
+					<header class="index anim_{{ settings.album_anim }} cap_width">
+						<h1>
+							{{ album.title }}
+							<koken:if true="settings.show_album_dl">
+								<koken:album_download>
+										&nbsp;
+										<span class="item_meta">
+											<koken:link title="{{ language.download }}"><i class="kicon-dl"></i></koken:link>
+										</span>
+								</koken:album_download>
+							</koken:if>
+							<koken:filtered>
+								&nbsp;&nbsp;
+								<span class="item_meta">
+									<koken:loop>
+										<koken:if data="{{ filter.title }}" equals="Date">
+											{{ filter.count plural="language.items" singular="language.item" }} {{ language.added }} {{ filter.value }} / <koken:link title="{{ language.view_all_of_title collate='album.title' }}">{{ language.view_all }}</koken:link>
+										</koken:if>
+									</koken:loop>
+								</span>
+							</koken:filtered>
+						</h1>
+
+						{{ album.description paragraphs="true" }}
+						<koken:if true="settings.show_album_tagscats">
+							<koken:categories>
+								<p class="meta">
+									<koken:loop separator=", ">
+										<koken:link title="{{ language.view_all_albums_in_title collate='category.title' }}">
+											{{ category.title }}
+										</koken:link>
+									</koken:loop>
+								</p>
+							</koken:categories>
+							<koken:tags>
+								<p class="meta tags">
+									<koken:loop separator="&nbsp;">
+										<koken:link title="{{ language.view_all_albums_in }} #{{ tag.title }}">
+											#{{ tag.title }}
+										</koken:link>
+									</koken:loop>
+								</p>
+							</koken:tags>
+						</koken:if>
+						<koken:topics>
+							<p class="meta">
+								{{ language.read_more_in }}
+								<koken:loop separator=", ">
+									<koken:link title="{{ language.read_more_in_title collate='title' }}">
+										{{ title }}
+									</koken:link>
+								</koken:loop>
+							</p>
+						</koken:topics>
+					</header>
+				</koken:if>
+
+			</koken:if>
+
+			<koken:include file="layouts/{{ settings.page_layout }}_loop.html" />
+
+			<koken:else>
+
+				<koken:note>
+
+					This album is empty. Add content to it in the Library.
+
+				</koken:note>
+
+			</koken:load>
+
+	</div>
+
+</div>
+
+<koken:if data="settings.page_layout" equals="grid">
+	<koken:include file="layouts/pillar_madison.html" />
+</koken:if>
+
+<koken:include file="layouts/footer.html" />

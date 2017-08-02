@@ -1,0 +1,51 @@
+<figcaption class="cap_width">
+
+	<koken:if true="settings.show_title">
+		<h3>
+			<koken:link lightbox="{{ settings.link_to_lightbox }}">{{ content.title | content.filename }}</koken:link>
+		</h3>
+	</koken:if>
+
+	<koken:if true="settings.show_rating">
+		<koken:rating>
+			<p>{{ rating }}</p>
+		</koken:rating>
+	</koken:if>
+
+	<koken:if true="settings.show_caption">
+		{{ content.caption paragraphs="true" }}
+	</koken:if>
+
+	<koken:if true="settings.show_tagscats">
+
+		<koken:categories>
+			<p class="meta">
+				<koken:loop separator=", ">
+					<koken:link title="{{ language.view_everything_in_title collate='category.title' }}">
+						{{ category.title }}
+					</koken:link>
+				</koken:loop>
+			</p>
+		</koken:categories>
+
+		<koken:tags>
+			<p class="meta tags">
+				<koken:loop separator="&nbsp;">
+					<koken:link title="{{ language.view_everything_in }} #{{ tag.title }}">
+						#{{ tag.title }}
+					</koken:link>
+				</koken:loop>
+			</p>
+		</koken:tags>
+
+	</koken:if>
+
+	<koken:if true="{{ settings.show_source }}">
+    	<koken:not empty="{{ content.source.title }}">
+			<p class="meta">
+				<a href="{{ content.source.url }}" onclick="return !window.open(this.href);" title="{{ language.view_on_title collate='content.source.title' }}">{{ language.view_on_title collate="content.source.title" }}</a>
+			</p>
+		</koken:not>
+	</koken:if>
+
+</figcaption>

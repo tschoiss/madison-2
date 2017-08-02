@@ -1,0 +1,41 @@
+<div id="contents" class="{{ settings.spin_style }}">
+
+	<koken:loop>
+
+		<figure id="content-{{ id }}" class="list_item">
+
+			<div class="item_media clear" data-koken-ignore-responsive="true">
+
+				<span class="img_wrap" data-koken-ignore-responsive="true">
+
+					<koken:link lightbox="{{ settings.link_to_lightbox }}"><koken:img lazy="true" class="imgframe" /></koken:link>
+
+					<koken:if true="{{ settings.show_content_load_spin }}">
+					<koken:if data="settings.spin_style" equals="halfcirc"><div class="spinner_pos"><div class="spinner"></div></div></koken:if>
+					</koken:if>
+
+				</span>
+
+			</div>
+
+			<koken:if true="{{ settings.show_text }}">
+
+				<koken:include file="layouts/figcaption_album.html" />
+
+			</koken:if>
+
+		</figure>
+
+	</koken:loop>
+
+</div>
+
+<koken:keyboard_scroll offset="-40" element=".list_item" />
+
+<koken:filtered>
+	<h3>
+		<koken:link title="{{ language.view_title collate='album.title' }}">{{ language.view_all }} {{ album.counts.total }} {{ filter.count plural="language.items" singular="language.item" }} in {{ album.title }}</koken:link>
+	</h3>
+</koken:filtered>
+
+<koken:include file="layouts/strip.html" />

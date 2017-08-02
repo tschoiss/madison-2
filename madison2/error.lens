@@ -1,0 +1,13 @@
+<koken:include file="layouts/header.html" />
+
+<div id="main" class="palign_{{ settings.page_align }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		{{ language.error }}: {{ routed_variables.code }}
+
+	</div>
+
+</div>
+
+<koken:include file="layouts/footer.html" />

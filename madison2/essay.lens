@@ -1,0 +1,119 @@
+<koken:include file="layouts/header.html" />
+
+<koken:load>
+
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ essay.title strip_html='true' }}" />
+		<meta property="og:description" content="{{ essay.excerpt strip_html='true' }}" />
+		<meta property="og:url" content="{{ essay.url }}" />
+		<meta property="og:type" content="website" />
+		<koken:featured_image>
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		</koken:featured_image>
+		<meta name="medium" content="article" />
+		<koken:not empty="profile.twitter">
+			<koken:featured_image>
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@{{ profile.twitter }}" />
+			<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			<meta name="twitter:image" content="{{ content.presets.medium_large.url }}" />
+			</koken:featured_image>
+		</koken:not>
+	</koken:head>
+
+	<div id="main" class="palign_{{ settings.page_align }} strip_{{ settings.show_strip }}">
+
+		<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+			<article>
+
+				<koken:include file="layouts/essay.html" />
+
+				<div class="essay_pag">
+					<ul>
+						<li>
+							<span class="cell left">
+								<koken:next>
+									<koken:time class="item_meta" />
+									<h3>
+										<koken:link title="{{ language.read_title collate='essay.title' }}" class="title">
+											{{ essay.title truncate="60" }}
+										</koken:link>
+									</h3>
+									<p class="body_small">
+										{{ essay.excerpt }}
+									</p>
+								<koken:else>
+									&nbsp;
+								</koken:next>
+							</span>
+							<span class="cell right">
+								<koken:previous>
+									<koken:time class="item_meta" />
+									<h3>
+										<koken:link title="{{ language.read_title collate='essay.title' }}" class="title">
+											{{ essay.title truncate="60" }}
+										</koken:link>
+									</h3>
+									<p class="body_small">
+										{{ essay.excerpt }}
+									</p>
+								<koken:else>
+									&nbsp;
+								</koken:previous>
+							</span>
+						</li>
+					</ul>
+				</div>
+
+				<koken:load source="featured_essays">
+					<div id="feat-essays">
+						<h2>{{ language.featured_essays }}</h2>
+						<div id="essay-list">
+							<koken:loop>
+								<div>
+									<koken:featured_image>
+										<koken:link title="{{ language.read_title collate='essay.title' }}">
+											<koken:img size="16:9" />
+										</koken:link>
+									</koken:featured_image>
+									<koken:time class="item_meta" />
+									<h3>
+										<koken:link title="{{ language.read_title collate='essay.title' }}">{{ essay.title }}</koken:link>
+									</h3>
+									<p class="body_small">
+										{{ essay.excerpt }}
+										<koken:link title="{{ language.read_title collate='essay.title' }}">{{ language.read_more }}</koken:link>
+									</p>
+								</div>
+							</koken:loop>
+						</div>
+					</div>
+				</koken:load>
+
+				<koken:if true="settings.show_disc_essay">
+
+					<div id="kdiscuss">
+
+						<koken:discussion>
+
+							{{ discussion }}
+
+						</koken:discussion>
+
+					</div>
+
+				</koken:if>
+
+			</article>
+
+		</div>
+
+	</div>
+
+</koken:load>
+
+<koken:include file="layouts/footer.html" />

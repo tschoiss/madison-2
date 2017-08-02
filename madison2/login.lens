@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="robots" content="noindex">
+	<title>Password required / {{ site.title }}</title>
+	<koken:asset file="reset.css" common="true" />
+	<koken:settings />
+</head>
+<body class="k-lens-login">
+	<div id="klogin_form">
+
+		<koken:form>
+
+			<div class="form">
+
+				<header class="top" id="klogin_title">
+					<koken:if data="settings.site_title_type" equals="text">
+						<h1 class="site_title"><koken:link to="front" title="{{ language.home }}">{{ site.title }}</koken:link></h1>
+					<koken:else>
+						<div id="klogin_logo">
+							<div id="site_logo">
+								<div class="w">
+									<koken:link to="front" title="{{ language.home }}"><img src="{{ settings.site_title_img_url }}" alt="{{ site.title }}" class="custom_logo"></koken:link>
+								</div>
+							</div>
+						</div>
+					</koken:if>
+				</header>
+
+				<koken:not empty="messages.koken_password_error">
+					<p class="password-error">
+						{{ messages.koken_password_error }}
+					</p>
+				</koken:not>
+				<input class="klogin_input lg" type="password" name="password" autofocus placeholder="{{ language.enter_password }}" />
+				<button class="klogin_button lg" type="submit" disabled>{{ language.go }} </button>
+
+			</div>
+
+		</koken:form>
+	</div>
+	<script>
+		$(document).ready(function() {
+		     $('input[type="password"]').keyup(function() {
+	           $('button[type="submit"]').attr('disabled', !$(this).val().length);
+		     }).trigger('keyup');
+	 	});
+	</script>
+</body>
+</html>

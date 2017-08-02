@@ -1,0 +1,60 @@
+<koken:include file="layouts/header.html" />
+
+<koken:load>
+
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ labels.tag.plural }}" />
+		<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+	</koken:head>
+
+</koken:load>
+
+<div id="main" class="palign_{{ settings.page_align }} strip_{{ settings.show_strip }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		<koken:load>
+
+			<header class="index">
+				<h1>
+					{{ language.categories }}
+				</h1>
+			</header>
+
+			<ol class="meta_list">
+
+			<koken:loop>
+
+				<li>
+
+					<koken:link title="{{ language.view_everything_in_title collate='category.title' }}">
+
+						<span class="count">{{ category.counts.total }}</span>
+						{{ category.title }}
+
+					</koken:link>
+
+				</li>
+
+			</koken:loop>
+
+			</ol>
+
+			<koken:include file="layouts/pagination.html" />
+
+		<koken:else>
+
+			<koken:note>
+				This page displays categories. None were found. Assign some to content in the Library or to essays/pages in Text.
+			</koken:note>
+
+		</koken:load>
+
+	</div>
+
+</div>
+
+<koken:include file="layouts/footer.html" />

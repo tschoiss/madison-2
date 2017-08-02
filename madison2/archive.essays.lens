@@ -1,0 +1,61 @@
+<koken:include file="layouts/header.html" />
+
+<div id="main" class="palign_{{ settings.page_align }} strip_{{ settings.show_strip }}">
+
+	<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+		<koken:load limit="{{ settings.essays_index_limit }}">
+
+			<koken:head>
+				<meta property="og:site_name" content="{{ site.title }}" />
+				<meta property="og:description" content="{{ site.description strip_html='true' }}" />
+				<meta property="og:title" content="{{ labels.essay.plural }}" />
+				<meta property="og:type" content="blog" />
+				<meta property="og:url" content="{{ location.site_url }}{{ location.here }}" />
+			</koken:head>
+
+			<koken:variable name="list" value="true" />
+
+			<header class="index">
+				<h1>
+					{{ language.viewing_all_essays_in }}
+					<koken:if data="{{ archive.type }}" equals="tag">
+						#{{ archive.title }}
+					</koken:if>
+					<koken:if data="{{ archive.type }}" equals="category">
+						{{ archive.title }}
+					</koken:if>
+				</h1>
+			</header>
+
+			<koken:loop>
+
+				<article>
+
+					<koken:include file="layouts/essay.html" />
+
+				</article>
+
+			</koken:loop>
+
+			<koken:include file="layouts/pagination.html" />
+
+			<koken:include file="layouts/strip.html" />
+
+			<koken:keyboard_scroll offset="-{{ settings.mob_menu_h }}" element="article" />
+
+		<koken:else>
+
+			<koken:note>
+
+				This page displays essays. Create some in Text.
+
+			</koken:note>
+
+		</koken:load>
+
+	</div>
+
+</div>
+
+<koken:include file="layouts/footer.html" />

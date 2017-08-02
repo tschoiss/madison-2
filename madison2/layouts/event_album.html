@@ -1,0 +1,94 @@
+<koken:event_album>
+
+	<figure class="list_item">
+
+		<div class="item_media">
+
+			<koken:if data="settings.album_time_type" equals="mosaic">
+
+				<koken:link lightbox="{{ settings.link_to_lightbox }}" title="{{ language.view_title collate='album.title' }}">
+					<koken:if condition="{{ album.counts.total }} === 1">
+						<koken:img lazy="true" class="imgframe" />
+					<koken:else>
+						<koken:if true="settings.album_cover_limit">
+							<div class="imgframe">
+								<koken:covers minimum="{{ settings.mosaic_cols * settings.mosaic_rows }}" limit="{{ settings.mosaic_cols * settings.mosaic_rows }}">
+									<ul class="k-mosaic k-mosaic-{{ settings.mosaic_cols }} edge">
+										<koken:loop>
+											<koken:background tag="li"></koken:background>
+										</koken:loop>
+									</ul>
+								</koken:covers>
+							</div>
+						<koken:else>
+							<div class="imgframe">
+								<koken:covers limit="{{ covers.length }}">
+									<ul class="k-mosaic k-mosaic-{{ settings.mosaic_cols }} edge">
+										<koken:loop>
+											<koken:background tag="li"></koken:background>
+										</koken:loop>
+									</ul>
+								</koken:covers>
+							</div>
+						</koken:if>
+					</koken:if>
+				</koken:link>
+
+			</koken:if>
+
+			<koken:if data="settings.album_time_type" equals="slideshow">
+
+				<koken:pulse group="timeline-albums" data="album.covers" link_to="album" />
+
+			</koken:if>
+
+			<koken:if data="settings.album_time_type" equals="cover">
+
+				<koken:link lightbox="{{ settings.link_to_lightbox }}" title="{{ language.view_title collate='album.title' }}">
+
+					<koken:img lazy="true" class="imgframe" />
+
+				</koken:link>
+
+			</koken:if>
+
+		</div>
+
+		<figcaption class="cap_width">
+
+			<h3>
+				<koken:link lightbox="{{ settings.link_to_lightbox }}">
+					{{ album.title }}
+				</koken:link>
+			</h3>
+
+			<p class="caption">
+				{{ album.summary | album.description }}
+			</p>
+
+			<koken:categories>
+				<p class="meta">
+					{{ language.view_more_in }}:
+					<koken:loop separator=", ">
+						<koken:link to="category" title="{{ language.view_everything_in_title collate='category.title' }}">
+							{{ category.title }}
+						</koken:link>
+					</koken:loop>
+				</p>
+			</koken:categories>
+
+			<koken:tags>
+				<p class="meta tags">
+					<koken:loop separator="&nbsp;">
+						<koken:link to="tag" title="{{ language.view_everything_in }} #{{ tag.title }}">
+							#{{ tag.title }}
+						</koken:link>
+					</koken:loop>
+				</p>
+			</koken:tags>
+
+		</figcaption>
+
+	</figure>
+
+</koken:event_album>

@@ -1,0 +1,42 @@
+<figcaption class="cap_width">
+
+	<koken:if true="settings.show_title">
+		<h3>
+			<koken:link title="{{ album.title }}">
+				{{ album.title }}
+			</koken:link>
+		</h3>
+	</koken:if>
+
+	<koken:if true="settings.show_caption">
+		<p class="caption">
+			{{ album.summary | album.description }}
+		</p>
+	</koken:if>
+
+	<koken:if true="settings.show_tagscats">
+
+		<koken:categories>
+			<p class="meta">
+				{{ language.view_more_in }}:
+				<koken:loop separator=", ">
+					<koken:link title="{{ language.view_everything_in_title collate='category.title' }}">
+						{{ category.title }}
+					</koken:link>
+				</koken:loop>
+			</p>
+		</koken:categories>
+
+		<koken:tags>
+			<p class="meta">
+				<koken:loop separator="&nbsp;">
+					<koken:link title="{{ language.view_everything_in }} #{{ tag.title }}">
+						#{{ tag.title }}
+					</koken:link>
+				</koken:loop>
+			</p>
+		</koken:tags>
+
+	</koken:if>
+
+</figcaption>

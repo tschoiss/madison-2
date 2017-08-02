@@ -1,0 +1,78 @@
+<koken:event_album_update>
+
+	<figure class="list_item">
+
+		<div class="item_media">
+
+			<koken:if data="settings.album_update_time_type" equals="mosaic">
+				<koken:link filter:order_by="published_on" filter:year="{{ date date_format='Y' }}" filter:month="{{ date date_format='m' }}" filter:day="{{ date date_format='d' }}" title="{{ language.view_title collate='album.title' }}">
+					<koken:if condition="{{ content.length }} === 1">
+						<koken:img lazy="true" class="imgframe" />
+					<koken:else>
+						<ul class="k-mosaic k-mosaic-{{ settings.mosaic_cols }} edge">
+							<koken:loop limit="{{ settings.mosaic_cols * settings.mosaic_rows }}">
+								<koken:background tag="li"></koken:background>
+							</koken:loop>
+						</ul>
+					</koken:if>
+				</koken:link>
+			</koken:if>
+
+			<koken:if data="settings.album_update_time_type" equals="slideshow">
+
+				<koken:pulse group="timeline-albums" data="album.covers" link_to="album" />
+
+			</koken:if>
+
+			<koken:if data="settings.album_update_time_type" equals="images">
+
+				<koken:loop>
+
+					<koken:link filter:order_by="published_on" filter:year="{{ date date_format='Y' }}" filter:month="{{ date date_format='m' }}" filter:day="{{ date date_format='d' }}" title="{{ language.view_title collate='album.title' }}">
+
+						<koken:img lazy="true" class="imgframe" />
+
+					</koken:link>
+
+				</koken:loop>
+
+			</koken:if>
+
+		</div>
+
+		<figcaption class="cap_width">
+
+			<h3>
+				<koken:link filter:order_by="published_on" filter:year="{{ date date_format='Y' }}" filter:month="{{ date date_format='m' }}" filter:day="{{ date date_format='d' }}" title="{{ language.view_title collate='album.title' }}">{{ album.title }}</koken:link>&nbsp;&nbsp;<span class="item_meta">({{ content.length }} {{ language.new }} {{ content.length plural="language.items" singular="language.item" }})</span>
+			</h3>
+
+			<p class="caption">
+				{{ album.summary | album.description }}
+			</p>
+
+			<koken:categories>
+				<p class="meta">
+					{{ language.view_more_in }}:
+					<koken:loop separator=", ">
+						<koken:link to="category" title="{{ language.view_everything_in_title collate='category.title' }}">
+							{{ category.title }}
+						</koken:link>
+					</koken:loop>
+				</p>
+			</koken:categories>
+
+			<koken:tags>
+				<p class="meta tags">
+					<koken:loop separator="&nbsp;">
+						<koken:link to="tag" title="{{ language.view_everything_in }} #{{ tag.title }}">
+							#{{ tag.title }}
+						</koken:link>
+					</koken:loop>
+				</p>
+			</koken:tags>
+
+		</figcaption>
+
+	</figure>
+
+</koken:event_album_update>

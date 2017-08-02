@@ -1,0 +1,128 @@
+<koken:include file="layouts/header.html" />
+
+<koken:load>
+
+	<koken:head>
+		<meta property="og:site_name" content="{{ site.title }}" />
+		<meta property="og:title" content="{{ content.title|content.filename strip_html="true" }}" />
+		<meta property="og:description" content="{{ content.caption strip_html="true" }}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="{{ content.presets.medium_large.url }}" />
+		<meta property="og:image:width" content="{{ content.presets.medium_large.width }}" />
+		<meta property="og:image:height" content="{{ content.presets.medium_large.height }}" />
+		<meta property="og:url" content="{{ content.url }}" />
+		<koken:content_image>
+			<koken:not empty="profile.twitter">
+				<meta name="twitter:card" content="photo" />
+				<meta name="twitter:site" content="@{{ profile.twitter }}" />
+				<meta name="twitter:creator" content="@{{ profile.twitter }}" />
+			</koken:not>
+		</koken:content_image>
+	</koken:head>
+
+	<div id="main" class="palign_{{ settings.page_align }}">
+
+		<div id="main_wrap" class="calign_{{ settings.content_align }}">
+
+			<koken:if true="settings.show_contents_link">
+
+				<div id="content_all_contents" class="archive_head">
+
+					<div style="float:right;">
+						<koken:parent>
+							<koken:variable name="previous_label" value="{{ language.previous }}" />
+							<koken:variable name="next_label" value="{{ language.next }}" />
+						<koken:else>
+							<koken:variable name="previous_label" value="{{ language.newer }}" />
+							<koken:variable name="next_label" value="{{ language.older }}" />
+						</koken:parent>
+
+						<koken:previous>
+							<koken:link class="pag back" title="{{ previous_label }}" bind_to_key="left">{{ previous_label }}</koken:link>
+						<koken:else>
+						</koken:previous>
+
+						&nbsp;
+
+						<koken:next>
+							<koken:link class="pag next" title="{{ next_label }}" bind_to_key="right">{{ next_label }}</koken:link>
+						<koken:else>
+						</koken:next>
+
+					</div>
+
+					<koken:context>
+						<koken:link class="pag back" title="{{ language.view_title collate='context.title' }}">{{ context.title }}</koken:link>
+					<koken:else>
+						<koken:link class="pag back" to="contents" title="{{ language.view_all_content }}">{{ language.all_content }}</koken:link>
+					</koken:context>
+
+					&nbsp;
+
+				</div>
+
+			</koken:if>
+
+			<figure id="content-{{ id }}" class="list_item">
+
+				<div class="item_media clear" data-koken-ignore-responsive="true">
+
+					<koken:content_image>
+
+						<span class="img_wrap" data-koken-ignore-responsive="true">
+
+							<koken:if true="settings.show_share">
+
+								<koken:if true="content.public">
+
+									<koken:include file="layouts/share_content.html" />
+
+								 </koken:if>
+
+							</koken:if>
+
+							<koken:img lazy="true" class="imgframe" />
+
+							<koken:if true="{{ settings.show_content_load_spin }}">
+
+								<koken:if data="settings.spin_style" equals="halfcirc"><div class="spinner_pos"><div class="spinner"></div></div></koken:if>
+
+							</koken:if>
+
+						</span>
+
+					</koken:content_image>
+
+					<koken:content_video>
+
+						<koken:video />
+
+					</koken:content_video>
+
+				</div>
+
+				<koken:if true="settings.show_exif || settings.show_date">
+
+					<koken:include file="layouts/media_meta.html" />
+
+				</koken:if>
+
+				<koken:include file="layouts/figcaption_content.html" />
+
+				<koken:max_download>
+
+					<p class="meta">
+						<koken:link title="{{ language.download_image }}">{{ language.download }} ({{ max_download.width }} x {{ max_download.height }})</koken:link>
+					</p>
+
+				</koken:max_download>
+
+			</figure>
+
+		</div>
+
+	</div>
+
+</koken:load>
+
+<koken:include file="layouts/footer.html" />

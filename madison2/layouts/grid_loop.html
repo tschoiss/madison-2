@@ -1,0 +1,80 @@
+<div id="kpgrid">
+
+	<div id="kpgrid_content" class="{{ settings.spin_style }} spin_{{ settings.show_content_load_spin }}">
+
+		<koken:loop>
+
+			<figure class="kpgriditem">
+
+				<div class="item_media type_{{ content.file_type }}" data-koken-ignore-responsive="true">
+
+					<span class="img_wrap" data-koken-ignore-responsive="true">
+
+						<koken:content_video>
+							<span class="vid_show vid_play"><i class="kvicon-vid-play"></i></span>
+							<span class="vid_show vid_time">{{ content.duration }}</span>
+						</koken:content_video>
+
+						<koken:if true="settings.show_share">
+
+							<koken:if true="content.public">
+
+								<koken:include file="layouts/share_content.html" />
+
+							 </koken:if>
+
+						</koken:if>
+
+						<koken:link class="imgframe" lightbox="{{ settings.link_to_lightbox }}">
+
+							<koken:if data="{{ settings.img_scale }}" equals="uniform">
+
+								<koken:img lazy="true" size="{{ settings.img_ratio }}" />
+
+							</koken:if>
+
+							<koken:if data="{{ settings.img_scale }}" equals="normal">
+
+								<koken:img lazy="true" />
+
+							</koken:if>
+
+							<koken:if true="{{ settings.show_content_load_spin }}">
+
+								<koken:if data="settings.spin_style" equals="halfcirc"><div class="spinner_pos"><div class="spinner"></div></div></koken:if>
+
+							</koken:if>
+
+						</koken:link>
+
+					</span>
+
+					<koken:if true="{{ settings.show_text }}">
+
+						<koken:if true="{{ settings.show_exif || settings.show_date }}">
+
+							<koken:include file="layouts/media_meta.html" />
+
+						</koken:if>
+
+					</koken:if>
+
+					<koken:if true="{{ settings.show_text }}">
+
+						<koken:include file="layouts/figcaption_content.html" />
+
+					</koken:if>
+
+				</div>
+
+			</figure>
+
+		</koken:loop>
+
+	</div>
+
+</div>
+
+<koken:keyboard_scroll offset="-{{ settings.mob_menu_h }}" element=".pillar .kpgriditem" />
+
+<koken:include file="layouts/strip.html" />

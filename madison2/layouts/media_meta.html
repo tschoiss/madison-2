@@ -1,0 +1,34 @@
+<div class="media-meta">
+
+	<koken:if true="settings.show_date">
+		<koken:time class="item_meta" />
+	</koken:if>
+
+	<koken:if true="settings.show_exif">
+		<koken:exif>
+			<ol class="exif date_{{ settings.show_date }}">
+				<koken:not empty="exif.aperture">
+					<li>
+						{{ exif.aperture }}
+					</li>
+				</koken:not>
+				<koken:not empty="exif.exposure">
+					<li>
+						{{ exif.exposure }}
+					</li>
+				</koken:not>
+				<koken:not empty="exif.focal_length">
+					<li>
+						{{ exif.focal_length }}
+					</li>
+				</koken:not>
+				<koken:not empty="exif.iso_speed_ratings">
+					<li>
+						{{ exif.iso_speed_ratings }}
+					</li>
+    		 </koken:not>
+    		</ol>
+		</koken:exif>
+	</koken:if>
+
+</div>
